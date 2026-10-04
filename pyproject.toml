@@ -11,7 +11,11 @@ dependencies = ["lxml>=4.9", "pypdf>=4.0"]
 
 [project.optional-dependencies]
 pdfgen = ["reportlab>=4.0"]
-mcp = ["mcp>=1.0"]
+# Capped below 2.0 deliberately: mcp_server/server.py uses the v1 API
+# (mcp.server.fastmcp.FastMCP), which mcp 2.x renamed to MCPServer. An unbounded
+# lower bound let 2.x resolve in CI and only worked locally because this machine
+# already had 1.30.0 installed. Migrating to the 2.x API is a tracked follow-up.
+mcp = ["mcp>=1.0,<2"]
 
 [project.scripts]
 doc-eval = "harness.__main__:main"
