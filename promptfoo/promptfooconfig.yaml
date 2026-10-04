@@ -1,0 +1,76 @@
+# promptfoo adapter for the doc-eval harness.
+#
+#   npx promptfoo eval -c promptfoo/promptfooconfig.yaml     # from the repo root
+#
+# No API key: the provider is the deterministic harness, not a model. Each test row
+# is one fixture, and `expect` is the check-id set that fixture MUST trip - authored
+# here, independently of the harness's own cases.json, so a row can fail when the
+# harness and the declared expectation disagree. A set that agrees by accident is
+# not evidence; a set that is declared twice and agrees is.
+#
+# Two promptfoo behaviours worth knowing, both learned the hard way:
+#   1. Provider paths resolve relative to THIS FILE, not the working directory.
+#   2. A list-valued `vars` entry fans out into one test row PER ELEMENT. `expect`
+#      is therefore a comma-separated string, not a YAML list.
+description: "WV/NIPA-2 regression matrix as provider evals (schema + instruction + render layers)"
+
+prompts:
+  - "Evaluate fixture {{case}} against the NIPA-2 spec pack."
+
+providers:
+  - id: "python:provider.py:call_api"
+    config:
+      spec: specs/wv_nipa2
+      cases: fixtures/cases.json
+
+defaultTest:
+  assert:
+    - type: is-json
+    - type: javascript
+      value: |
+        // Caught-set equality against the expectation declared in this file.
+        const r = JSON.parse(output);
+        const vars = (typeof context !== 'undefined' && context.vars) || {};
+        const norm = (s) => String(s || '').split(',').map(x => x.trim())
+                               .filter(Boolean).sort().join(',');
+        const got = [...(r.caught || [])].sort().join(',');
+        const want = norm(vars.expect);
+        const ok = got === want && r.outcome === 'as_expected';
+        return {
+          pass: ok,
+          score: ok ? 1 : 0,
+          reason: ok
+            ? `as_expected; caught [${got || '-'}]`
+            : `caught [${got || '-'}] vs declared [${want || '-'}]; outcome=${r.outcome}`,
+        };
+
+tests:
+  # The clean control. Must not false-fail: this row is what keeps the false-fail
+  # rate honest, and it is the first thing to watch when tightening a check.
+  - vars:
+      case: good_corporate
+      expect: ""
+
+  # Each of the seven production defects below is XSD-valid. Schema validation
+  # alone passes every one of them - that is the whole point of the matrix.
+  - vars:
+      case: bug1_row_totals_clobbered
+      expect: "rules.sheet.rows"
+  - vars:
+      case: bug2_carryforward_wrong_column
+      expect: "rules.sheet.chain,rules.sheet.rows"
+  - vars:
+      case: bug3_stale_amended_total
+      expect: "rules.golden"
+  - vars:
+      case: bug4_int_truncated_fiduciary_share
+      expect: "rules.precision"
+  - vars:
+      case: bug5_silent_print_failure
+      expect: "render.present"
+  - vars:
+      case: bug6_project_number_holds_amount
+      expect: "types.project_number"
+  - vars:
+      case: bug7_credit_block_skipped
+      expect: "rules.eligible_presence,rules.golden,schema.branches"

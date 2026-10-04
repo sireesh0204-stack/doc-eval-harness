@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "name": "good_corporate",
+      "input": "inputs/good_corporate.json",
+      "xml": "xml/good_corporate.xml",
+      "pdf": "pdf/SchNIPA2_good.pdf",
+      "expected_failures": []
+    },
+    {
+      "name": "bug1_row_totals_clobbered",
+      "input": "inputs/bug1.json",
+      "xml": "xml/bug1.xml",
+      "expected_failures": ["rules.sheet.rows"]
+    },
+    {
+      "name": "bug2_carryforward_wrong_column",
+      "input": "inputs/bug2.json",
+      "xml": "xml/bug2.xml",
+      "expected_failures": ["rules.sheet.rows", "rules.sheet.chain"]
+    },
+    {
+      "name": "bug3_stale_amended_total",
+      "input": "inputs/bug3.json",
+      "xml": "xml/bug3.xml",
+      "expected_failures": ["rules.golden"]
+    },
+    {
+      "name": "bug4_int_truncated_fiduciary_share",
+      "input": "inputs/bug4.json",
+      "xml": "xml/bug4.xml",
+      "expected_failures": ["rules.precision"]
+    },
+    {
+      "name": "bug5_silent_print_failure",
+      "input": "inputs/bug5.json",
+      "xml": "xml/bug5.xml",
+      "expected_pdf": "pdf/SchNIPA2_bug5.pdf",
+      "expected_failures": ["render.present"]
+    },
+    {
+      "name": "bug6_project_number_holds_amount",
+      "input": "inputs/bug6.json",
+      "xml": "xml/bug6.xml",
+      "expected_failures": ["types.project_number"]
+    },
+    {
+      "name": "bug7_credit_block_skipped",
+      "input": "inputs/bug7.json",
+      "xml": "xml/bug7.xml",
+      "expected_failures": ["schema.branches", "rules.eligible_presence", "rules.golden"]
+    }
+  ]
+}

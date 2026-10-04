@@ -1,0 +1,59 @@
+{
+  "form": "WV/SchNIPA2",
+  "instructions": "Rev. 6/2022",
+  "xsd": "nipa2.xsd",
+  "params": {
+    "credit_rate": 0.5,
+    "in_kind_rate": 0.75,
+    "min_contribution": 500,
+    "max_contribution": 200000,
+    "annual_credit_cap": 100000,
+    "carryover_window_years": 5,
+    "money_decimals": 2,
+    "fiduciary_share_decimals": 4
+  },
+  "groups": [
+    "BusinessFranchiseTax",
+    "CorporateNetIncomeTax",
+    "FiduciaryIncomeTax",
+    "PersonalIncomeTax",
+    "IndividualIncomeTax",
+    "InvestmentCarryoverSheet"
+  ],
+  "branches": {
+    "corporate": {
+      "require": ["CorporateNetIncomeTax"],
+      "forbid": ["FiduciaryIncomeTax", "PersonalIncomeTax", "IndividualIncomeTax"]
+    },
+    "partnership": {
+      "require": ["CorporateNetIncomeTax"],
+      "forbid": ["FiduciaryIncomeTax", "PersonalIncomeTax", "IndividualIncomeTax"]
+    },
+    "fiduciary": {
+      "require": ["FiduciaryIncomeTax"],
+      "forbid": ["CorporateNetIncomeTax", "PersonalIncomeTax", "IndividualIncomeTax"]
+    },
+    "individual": {
+      "require": ["IndividualIncomeTax"],
+      "forbid": ["CorporateNetIncomeTax", "FiduciaryIncomeTax", "PersonalIncomeTax"]
+    }
+  },
+  "suppression": {
+    "zero_groups": [
+      "BusinessFranchiseTax",
+      "CorporateNetIncomeTax",
+      "FiduciaryIncomeTax",
+      "PersonalIncomeTax",
+      "IndividualIncomeTax"
+    ],
+    "empty_groups": ["InvestmentCarryoverSheet"]
+  },
+  "ambiguities": [
+    {
+      "id": "fy_aggregate_cap",
+      "where": "NIPA-2 instructions, fiscal-year aggregate cap",
+      "values": [3000000, 2500000],
+      "harness_policy": "surface in every report; never silently assert either value"
+    }
+  ]
+}

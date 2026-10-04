@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# generated run artefacts
+report.json
+.env
+.venv/
+venv/
+
+# promptfoo
+promptfoo/.promptfoo/
+promptfoo/output/
+pf_out.json
+node_modules/

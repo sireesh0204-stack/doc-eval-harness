@@ -1,0 +1,8 @@
+<NIPA2>
+  <IndividualIncomeTax>
+    <TotalWVPersonalIncome>50000.00</TotalWVPersonalIncome>
+    <CreditLimit>30000.00</CreditLimit>
+    <AmountLineFour>30000.00</AmountLineFour>
+    <EnterSmallerLineBOrC>30000.00</EnterSmallerLineBOrC>
+  </IndividualIncomeTax>
+</NIPA2>

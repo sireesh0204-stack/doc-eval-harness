@@ -1,0 +1,9 @@
+{
+  "entity_type": "corporate",
+  "tax_year": 2024,
+  "liability_before_credits": 100000,
+  "projects": [
+    {"project_number": "NIP-2024-002", "transfer_year": 2024, "type": "cash", "contribution": 120000}
+  ],
+  "carryovers": []
+}

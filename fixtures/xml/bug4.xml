@@ -1,0 +1,18 @@
+<NIPA2>
+  <FiduciaryIncomeTax>
+    <TotalFiduciaryIncome>20000.00</TotalFiduciaryIncome>
+    <CreditLimit>11234.5678</CreditLimit>
+    <RemainingNIPACredit>0.0000</RemainingNIPACredit>
+    <TrustEstateShare>2808</TrustEstateShare>
+  </FiduciaryIncomeTax>
+  <InvestmentCarryoverSheet>
+    <Row>
+      <Column1ProjectNumber>NIP-2023-007</Column1ProjectNumber>
+      <Column2BeginYear>2023</Column2BeginYear>
+      <Column3Carryover><CreditCarryover>1234.5678</CreditCarryover><Total>1234.5678</Total></Column3Carryover>
+      <Column4CarryForward><AmountForward>1234.5678</AmountForward><Total>1234.5678</Total></Column4CarryForward>
+      <Column5AccountUsedThisYear><AmountUsed>1234.5678</AmountUsed><Total>1234.5678</Total></Column5AccountUsedThisYear>
+      <Column6RemainingUnusedCredit><RemainingUnused>0.0000</RemainingUnused><Total>0.0000</Total></Column6RemainingUnusedCredit>
+    </Row>
+  </InvestmentCarryoverSheet>
+</NIPA2>

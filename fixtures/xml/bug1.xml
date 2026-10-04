@@ -1,0 +1,26 @@
+<NIPA2>
+  <CorporateNetIncomeTax>
+    <TotalCorporateNetTax>8500.00</TotalCorporateNetTax>
+    <CreditLimit>31500.00</CreditLimit>
+    <RemainingNIPACredit>0.00</RemainingNIPACredit>
+    <NeighborhoodInvestment>60000.00</NeighborhoodInvestment>
+  </CorporateNetIncomeTax>
+  <InvestmentCarryoverSheet>
+    <Row>
+      <Column1ProjectNumber>NIP-2022-004</Column1ProjectNumber>
+      <Column2BeginYear>2022</Column2BeginYear>
+      <Column3Carryover><CreditCarryover>500.00</CreditCarryover><Total>1500.00</Total></Column3Carryover>
+      <Column4CarryForward><AmountForward>500.00</AmountForward><Total>1500.00</Total></Column4CarryForward>
+      <Column5AccountUsedThisYear><AmountUsed>500.00</AmountUsed><Total>1500.00</Total></Column5AccountUsedThisYear>
+      <Column6RemainingUnusedCredit><RemainingUnused>0.00</RemainingUnused><Total>0.00</Total></Column6RemainingUnusedCredit>
+    </Row>
+    <Row>
+      <Column1ProjectNumber>NIP-2023-009</Column1ProjectNumber>
+      <Column2BeginYear>2023</Column2BeginYear>
+      <Column3Carryover><CreditCarryover>1000.00</CreditCarryover><Total>1500.00</Total></Column3Carryover>
+      <Column4CarryForward><AmountForward>1000.00</AmountForward><Total>1500.00</Total></Column4CarryForward>
+      <Column5AccountUsedThisYear><AmountUsed>1000.00</AmountUsed><Total>1500.00</Total></Column5AccountUsedThisYear>
+      <Column6RemainingUnusedCredit><RemainingUnused>0.00</RemainingUnused><Total>0.00</Total></Column6RemainingUnusedCredit>
+    </Row>
+  </InvestmentCarryoverSheet>
+</NIPA2>

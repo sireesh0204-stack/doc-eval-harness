@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reconstructed from the documented NIPA-2 path list (TAX_FORM_ENGINE_CONTEXT.md);
+     not the government-original XSD. Every group optional: zero-value parents are
+     expected to be suppressed by the emitter, which the harness checks separately. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:simpleType name="USAmount">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="18"/>
+      <xs:fractionDigits value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProjectNumber">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="NIPA2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BusinessFranchiseTax" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AmountFinancialOrganization" type="USAmount" minOccurs="0"/>
+              <xs:element name="Total" type="USAmount" minOccurs="0"/>
+              <xs:element name="NetBusinessFranchiseTax" type="USAmount" minOccurs="0"/>
+              <xs:element name="NeighborhoodProgramCredit" type="USAmount" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CorporateNetIncomeTax" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TotalCorporateNetTax" type="USAmount" minOccurs="0"/>
+              <xs:element name="CreditLimit" type="USAmount" minOccurs="0"/>
+              <xs:element name="RemainingNIPACredit" type="USAmount" minOccurs="0"/>
+              <xs:element name="NeighborhoodInvestment" type="USAmount" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FiduciaryIncomeTax" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TotalFiduciaryIncome" type="USAmount" minOccurs="0"/>
+              <xs:element name="CreditLimit" type="USAmount" minOccurs="0"/>
+              <xs:element name="RemainingNIPACredit" type="USAmount" minOccurs="0"/>
+              <xs:element name="TrustEstateShare" type="USAmount" minOccurs="0"/>
+              <xs:element name="TotalLineCAndD" type="USAmount" minOccurs="0"/>
+              <xs:element name="NeighborhoodProgramCredit" type="USAmount" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PersonalIncomeTax" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TotalWVPersonalTax" type="USAmount" minOccurs="0"/>
+              <xs:element name="CreditLimit" type="USAmount" minOccurs="0"/>
+              <xs:element name="RemainingNIPACredit" type="USAmount" minOccurs="0"/>
+              <xs:element name="ShareProfitOrLoss" type="USAmount" minOccurs="0"/>
+              <xs:element name="TotalLineCAndD" type="USAmount" minOccurs="0"/>
+              <xs:element name="NeighborhoodInvestmentProgram" type="USAmount" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IndividualIncomeTax" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TotalWVPersonalIncome" type="USAmount" minOccurs="0"/>
+              <xs:element name="CreditLimit" type="USAmount" minOccurs="0"/>
+              <xs:element name="AmountLineFour" type="USAmount" minOccurs="0"/>
+              <xs:element name="EnterSmallerLineBOrC" type="USAmount" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="InvestmentCarryoverSheet" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Row" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Column1ProjectNumber" type="ProjectNumber"/>
+                    <xs:element name="Column2BeginYear" type="xs:int"/>
+                    <xs:element name="Column3Carryover">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="CreditCarryover" type="USAmount"/>
+                          <xs:element name="Total" type="USAmount"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Column4CarryForward">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AmountForward" type="USAmount"/>
+                          <xs:element name="Total" type="USAmount"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Column5AccountUsedThisYear">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AmountUsed" type="USAmount"/>
+                          <xs:element name="Total" type="USAmount"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Column6RemainingUnusedCredit">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RemainingUnused" type="USAmount"/>
+                          <xs:element name="Total" type="USAmount"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,12 @@
+{
+  "entity_type": "fiduciary",
+  "tax_year": 2024,
+  "liability_before_credits": 20000,
+  "trust_share_pct": 0.25,
+  "projects": [
+    {"project_number": "NIP-2024-041", "transfer_year": 2024, "type": "cash", "contribution": 20000}
+  ],
+  "carryovers": [
+    {"project_number": "NIP-2023-007", "begin_year": 2023, "carryover": 1234.5678, "used_this_year": 1234.5678}
+  ]
+}

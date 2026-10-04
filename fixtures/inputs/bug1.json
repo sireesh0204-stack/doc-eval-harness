@@ -1,0 +1,12 @@
+{
+  "entity_type": "partnership",
+  "tax_year": 2024,
+  "liability_before_credits": 40000,
+  "projects": [
+    {"project_number": "NIP-2024-021", "transfer_year": 2024, "type": "cash", "contribution": 60000}
+  ],
+  "carryovers": [
+    {"project_number": "NIP-2022-004", "begin_year": 2022, "carryover": 500, "used_this_year": 500},
+    {"project_number": "NIP-2023-009", "begin_year": 2023, "carryover": 1000, "used_this_year": 1000}
+  ]
+}
