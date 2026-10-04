@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . reportlab
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t .
+      - name: Regression suite must pass
+        run: python -m harness --spec specs/wv_nipa2 --cases fixtures/cases.json --json report.json
+      - name: Harness must go red on a regressed fixture
+        shell: bash
+        run: |
+          # A harness that cannot fail is not a harness. Replace a defective
+          # fixture with the clean one: the declared defect can no longer be
+          # caught, so the suite must exit non-zero.
+          cp fixtures/xml/good_corporate.xml /tmp/bug4.xml.bak
+          cp fixtures/xml/bug4.xml /tmp/bug4.xml.orig
+          cp fixtures/xml/good_corporate.xml fixtures/xml/bug4.xml
+          set +e
+          python -m harness --spec specs/wv_nipa2 --cases fixtures/cases.json > /dev/null 2>&1
+          rc=$?
+          cp /tmp/bug4.xml.orig fixtures/xml/bug4.xml
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::suite passed with a defect removed - checks are not binding"
+            exit 1
+          fi
+          echo "red-run proof OK (exit $rc)"
+      - name: MCP round-trip
+        run: python scripts/smoke_mcp.py
+
+  promptfoo:
+    # The same matrix, run through a third-party eval framework, and proven able
+    # to fail. Node-only so it stays independent of the Python matrix job.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: python -m pip install -e .
+      - name: Matrix green under promptfoo, and red when a defect is removed
+        run: python promptfoo/verify_adapter.py
