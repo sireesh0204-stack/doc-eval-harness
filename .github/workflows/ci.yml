@@ -21,7 +21,9 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e . reportlab
+          # `mcp` and `reportlab` are optional extras, not core deps: a bare
+          # `pip install -e .` leaves the MCP tools and PDF generation unimportable.
+          python -m pip install -e ".[mcp,pdfgen]"
       - name: Unit tests
         run: python -m unittest discover -s tests -t .
       - name: Regression suite must pass
